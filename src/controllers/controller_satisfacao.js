@@ -1,4 +1,4 @@
-import { adicionarNaPlanilha } from "../services/google_sheets_service.js";
+import { adicionarNaPlanilha } from "../services/enviar_planilha.js";
 
 export async function createdata(req, res) {
     let { nome, telefone, avaliacao_atendimento, nota_atendimento, indicacao_atendimento, nota_retorno } = req.body;
