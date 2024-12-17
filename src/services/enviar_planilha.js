@@ -1,41 +1,34 @@
+// services/google_sheets_service.js
 import { google } from "googleapis";
-import path from "path";
 
-// Configuração do Google Auth
 const auth = new google.auth.GoogleAuth({
-    keyFile: path.resolve("./config/credenciais.json"), // Caminho para o arquivo JSON
-    scopes: ["acesso-api-sheets@lateral-guild-444913-n0.iam.gserviceaccount.com"], // Escopo para acessar a planilha
+    credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        project_id: process.env.GOOGLE_PROJECT_ID,
+    },
+    scopes: ["acesso-api-sheets@lateral-guild-444913-n0.iam.gserviceaccount.com"],
 });
 
-// ID da planilha 
-const spreadsheetId = "1dxVAfeXPZL8F_xmi-mymgcv5-2UbGhINDJImtVxMTyc";
+const spreadsheetId = "1dxVAfeXPZL8F_xmi-mymgcv5-2UbGhINDJImtVxMTyc";  
 
-/**
- * Adiciona dados na planilha do Google Sheets.
- * @param {Array} dados - Um array com os dados
- * @returns {Boolean} - Retorna true se os dados forem adicionados com sucesso, ou false em caso de erro.
- */
-
+// Função que adiciona os dados na planilha
 export async function adicionarNaPlanilha(dados) {
     try {
-        // Cria o cliente de autenticação
         const client = await auth.getClient();
         const sheets = google.sheets({ version: "v4", auth: client });
 
-        // Organização para a tabela
         const request = {
             spreadsheetId,
             range: "Página1!A1", 
-            valueInputOption: "RAW", 
+            valueInputOption: "RAW",
             resource: {
-                values: [dados], 
+                values: [dados],  // Dados a serem inseridos
             },
         };
 
-        // Feedback
         const response = await sheets.spreadsheets.values.append(request);
-        console.log("Dados enviados para o Google Sheets com sucesso:", response.data);
-
+        console.log("Dados adicionados com sucesso:", response.data);
         return true;
     } catch (error) {
         console.error("Erro ao adicionar dados na planilha:", error.message);
