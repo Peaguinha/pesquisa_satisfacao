@@ -7,8 +7,6 @@ const app = express();
 // Obter o diretório atual
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-// Middleware para servir o favicon
-app.use('/favicon.ico', express.static(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Middleware para tratar requisições no formato JSON
 app.use(express.json());
