@@ -6,6 +6,8 @@ export async function createdata(req, res) {
     // Dados a serem enviados para a planilha
     const dados = [nome, telefone, avaliacao_atendimento, nota_atendimento, indicacao_atendimento, nota_retorno];
 
+    console.log("dados:", dados);
+    
     // Chama o service para adicionar os dados à planilha
     const sucesso = await adicionarNaPlanilha(dados);
 

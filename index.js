@@ -4,7 +4,7 @@ import routes from './src/routes/routes.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
-console.log(process.env.GOOGLE_PRIVATE_KEY);
+
 
 const app = express();
 
