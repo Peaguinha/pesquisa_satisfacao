@@ -7,7 +7,7 @@ const auth = new google.auth.GoogleAuth({
         private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
         project_id: process.env.GOOGLE_PROJECT_ID,
     },
-    scopes: ["acesso-api-sheets@lateral-guild-444913-n0.iam.gserviceaccount.com"],
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
 const spreadsheetId = "1dxVAfeXPZL8F_xmi-mymgcv5-2UbGhINDJImtVxMTyc";  
