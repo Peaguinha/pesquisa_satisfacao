@@ -1,22 +1,26 @@
-import { adicionarNaPlanilha } from "../services/enviar_planilha.js";
+import { adicionarNaPlanilha } from "../services/enviar_planilha.js"; // Serviço para Google Sheets
 
 export async function createdata(req, res) {
-    let { nome, telefone, avaliacao_atendimento, nota_atendimento, indicacao_atendimento, nota_retorno } = req.body;
-
+    const { nome, telefone, avaliacao_atendimento, nota_atendimento, indicacao_atendimento, nota_retorno } = req.body;
+    
     try {
-        // Monta os dados como um array
-        const dados = [nome, telefone, avaliacao_atendimento, nota_atendimento, indicacao_atendimento, nota_retorno];
+        const dados = [
+            nome,
+            telefone,
+            avaliacao_atendimento,
+            nota_atendimento,
+            indicacao_atendimento,
+            nota_retorno
+        ];
 
-        // Envia os dados para o Google Sheets
-        const resultado = await adicionarNaPlanilha(dados);
+        const resultado = await adicionarNaPlanilha(dados); // Chama o serviço para adicionar os dados
 
         if (resultado) {
-            res.status(200).json({ message: "Dados enviados com sucesso para a planilha!" });
+            res.status(200).json({ message: "Dados enviados com sucesso!" });
         } else {
-            res.status(500).json({ message: "Erro ao enviar os dados para a planilha." });
+            res.status(400).json({ message: "Erro ao enviar os dados." });
         }
     } catch (error) {
-        console.error("Erro no Controller:", error.message);
-        res.status(500).json({ message: `Erro de servidor: ${error.message}` });
+        res.status(500).json({ message: `Erro interno: ${error.message}` });
     }
 }

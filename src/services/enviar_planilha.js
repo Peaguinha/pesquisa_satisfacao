@@ -22,17 +22,17 @@ export async function adicionarNaPlanilha(dados) {
         const client = await auth.getClient();
         const sheets = google.sheets({ version: "v4", auth: client });
 
-        // Configuração da requisição
+        // Organização para a tabela
         const request = {
             spreadsheetId,
-            range: "Página1!A1", // Nome da aba e célula inicial
-            valueInputOption: "RAW", // Insere os dados como texto bruto
+            range: "Página1!A1", 
+            valueInputOption: "RAW", 
             resource: {
-                values: [dados], // Os dados a serem adicionados (um array unidimensional)
+                values: [dados], 
             },
         };
 
-        // Faz a requisição para adicionar os dados
+        // Feedback
         const response = await sheets.spreadsheets.values.append(request);
         console.log("Dados enviados para o Google Sheets com sucesso:", response.data);
 
